@@ -1,12 +1,11 @@
-
 <!DOCTYPE html>
 <html lang="tr">
 <head>
   <meta name="theme-color" content="#0f1113">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
-<link rel="preload" href="./style.css" as="style">
-<link rel="preload" href="./profile.jpg" as="image">
+  <link rel="preload" href="./style.css" as="style">
+  <link rel="preload" href="./profile.jpg" as="image">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>İzler — Berkay Alay</title>
@@ -24,8 +23,7 @@
 <body>
 
   <div id="intro-screen">
-    <div class="intro-bg"></div>
-    
+    <div class="intro-bg" style="background-image: url('./cover.jpg');"></div>
     <div class="intro-content">
       <h1 class="intro-title">İzler</h1>
       <p class="intro-quote">"Bazı cümleler yazıldığı yerde kalmaz.<br>Okuyanın içinde yer değiştirir."</p>
@@ -33,11 +31,10 @@
     </div>
   </div>
 
-  <div class="fixed-bg"></div>
+  <div class="fixed-bg" style="background-image: url('./cover.jpg');"></div>
   <div class="grain"></div>
 
   <main class="page" id="mainPage">
-    
     <header class="hero-spacer"></header>
 
     <div class="scene">
@@ -141,7 +138,8 @@
     </div>
 
   </main>
-<div class="music-control" id="music-trigger">
+
+  <div class="music-control" id="music-trigger">
     <div class="disc-wrapper">
       <div class="disc" id="disc">
         <img src="./kralkaybederse.jpg" alt="Müzik Plağı" draggable="false">
@@ -153,67 +151,57 @@
   <audio id="bg-music" loop>
     <source src="./muzik.mp3" type="audio/mpeg">
   </audio>
- <script>
-    // ==========================================
-    // 1. GİRİŞ EKRANI (INTRO) VE SCROLL KİLİDİ
-    // ==========================================
+
+  <script>
     const introScreen = document.getElementById('intro-screen');
     const startBtn = document.getElementById('start-btn');
     const mainPage = document.getElementById('mainPage');
+    const music = document.getElementById('bg-music');
+    const disc = document.getElementById('disc');
+    const hint = document.querySelector('.music-hint');
 
-    // Başlangıçta sayfayı kilitle (Aşağı inemesinler)
     document.body.style.overflow = 'hidden';
 
-    // "Hikayeye Dokun" Butonuna Basınca:
+    // 1. Giriş ve Müzik Fısıltısı (Fade-in)
     startBtn.addEventListener('click', () => {
-      // 1. Giriş ekranını sönükleştir
+      music.volume = 0;
+      music.play().catch(e => console.log("Müzik fısıltısı engellendi."));
+      
+      let fadeIn = setInterval(() => {
+        if (music.volume < 0.2) {
+          let nextVol = music.volume + 0.01;
+          music.volume = Math.min(nextVol, 0.2);
+        } else {
+          clearInterval(fadeIn);
+        }
+      }, 150);
+
+      disc.classList.add('playing');
+      if(hint) hint.textContent = "Çalıyor...";
+
       introScreen.classList.add('fade-out');
-      
-      // 2. Ana sayfayı görünür yap
-     mainPage.classList.add('content-visible');
-      
-      // 3. Kilidi aç (Artık kaydırabilir)
-      document.body.style.overflow = 'auto'; 
-      
-      // 4. Ekranı tamamen yok et (1.5 saniye sonra)
-      setTimeout(() => {
-        introScreen.style.display = 'none';
-      }, 1500);
+      mainPage.classList.add('visible'); // Önceki sayfalarla uyumlu sınıf
+      document.body.style.overflow = 'auto';
+      setTimeout(() => { introScreen.style.display = 'none'; }, 1500);
     });
 
-    // ==========================================
-    // 2. SCROLL ANİMASYONU (Kutuların Gelişi)
-    // ==========================================
+    // 2. Alıntıların Belirmesi (Intersection Observer)
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.add('visible');
-          observer.unobserve(entry.target); // Bir kere görünce takibi bırak
         }
       });
     }, { threshold: 0.1 });
 
     document.querySelectorAll('.quote').forEach(quote => observer.observe(quote));
 
-
-    // ==========================================
-    // 3. MÜZİK OYNATICI VE PLAK AYARLARI
-    // ==========================================
-    const musicTrigger = document.getElementById('music-trigger');
-    const music = document.getElementById('bg-music');
-    const disc = document.getElementById('disc');
-    const hint = document.querySelector('.music-hint');
-    
-    // Ses Seviyesi: %50 (İsteğin üzerine)
-    music.volume = 0.5; 
-
-    // Tıklayınca Çal/Durdur
-    musicTrigger.addEventListener('click', () => {
+    // 3. Manuel Müzik Kontrolü
+    document.getElementById('music-trigger').addEventListener('click', () => {
       if (music.paused) {
         music.play();
         disc.classList.add('playing');
         hint.textContent = "Çalıyor...";
-        hint.style.opacity = "0.7";
       } else {
         music.pause();
         disc.classList.remove('playing');
@@ -221,49 +209,31 @@
       }
     });
 
-    // Müzik bitince başa sar
-    music.addEventListener('ended', () => {
-      disc.classList.remove('playing');
-      hint.textContent = "Tekrarla";
-    });
-
-    // ==========================================
-    // 4. SESSİZLİK SENSÖRÜ (Sekme Değişirse)
-    // ==========================================
+    // 4. Sessizlik Sensörü (Sekme Değişince)
     document.addEventListener("visibilitychange", () => {
       if (document.hidden) {
-        // Kullanıcı başka sekmeye gitti
         music.pause();
         disc.classList.remove('playing');
         document.title = "Sessizlik..."; 
       } else {
-        // Geri geldi (Müzik otomatik başlamaz, kendi basmalı)
         document.title = "İzler — Berkay Alay"; 
       }
     });
-  </script>
-<script>
-  // === SAYFA YÜKLENME YÖNETİCİSİ ===
-  
-  // 1. Tarayıcı önbelleğinden (Geri butonuyla) geliniyorsa sayfayı yenileme sorunu olmasın
-  window.addEventListener("pageshow", function(event) {
-    if (event.persisted) {
-      document.body.classList.add('loaded');
-      document.body.style.opacity = "1";
-    }
-  });
 
-  // 2. Her şey yüklendiğinde (Resimler, CSS) perdeyi aç
-  window.addEventListener('load', () => {
-    document.body.classList.add('loaded'); // CSS'teki .loaded opacity:1 yapar
-    // Eğer toz efekti varsa başlat (Yoksa hata vermez, geçer)
-    if (typeof createDust === "function") createDust(); 
-  });
-  
-  // 3. Güvenlik Sübabı: Eğer 3 saniye içinde yüklenmezse zorla aç (Karanlıkta kalmasınlar)
-  setTimeout(() => {
-    document.body.classList.add('loaded');
-  }, 3000);
-</script>
+    // 5. Sayfa Yüklenme Yöneticisi
+    window.addEventListener("pageshow", function(event) {
+      if (event.persisted) {
+        document.body.classList.add('loaded');
+      }
+    });
+
+    window.addEventListener('load', () => {
+      document.body.classList.add('loaded');
+    });
+
+    setTimeout(() => {
+      document.body.classList.add('loaded');
+    }, 3000);
+  </script>
 </body>
 </html>
