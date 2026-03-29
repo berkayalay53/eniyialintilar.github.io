@@ -174,101 +174,96 @@
     <source src="./muzik.mp3" type="audio/mpeg">
   </audio>
 
-<script>
-  // ==========================================
-  // 1. DEĞİŞKENLER VE ÖN HAZIRLIK
-  // ==========================================
-  const introScreen = document.getElementById('intro-screen');
-  const startBtn = document.getElementById('start-btn');
-  const mainPage = document.getElementById('mainPage');
-  const music = document.getElementById('bg-music');
-  const disc = document.getElementById('disc');
-  const hint = document.querySelector('.music-hint');
+  <script>
+    // ==========================================
+    // 1. DEĞİŞKENLER VE GİRİŞ MEKANİZMASI
+    // ==========================================
+    const introScreen = document.getElementById('intro-screen');
+    const startBtn = document.getElementById('start-btn');
+    const mainPage = document.getElementById('mainPage');
+    const music = document.getElementById('bg-music');
+    const disc = document.getElementById('disc');
+    const hint = document.querySelector('.music-hint');
 
-  // Sayfa ilk açıldığında akışı durduruyoruz
-  document.body.style.overflow = 'hidden';
+    document.body.style.overflow = 'hidden';
 
-  // ==========================================
-  // 2. GİRİŞ BUTONU VE FADE-IN MEKANİZMASI
-  // ==========================================
-  startBtn.addEventListener('click', () => {
-    // Müziği sessizce başlatıyoruz
-    music.volume = 0;
-    music.play().catch(error => console.log("Müzik uyanamadı:", error));
-    
-    // Sesin yavaşça yükselmesi (Fade-in)
-    let fadeIn = setInterval(() => {
-      if (music.volume < 0.2) { // Üst sınır %20 ses seviyesi
-        let newVol = music.volume + 0.01;
-        music.volume = Math.min(newVol, 0.2);
+    startBtn.addEventListener('click', () => {
+      // FADE-IN SES EFEKTİ: Sessiz başlar ve yükselir
+      music.volume = 0;
+      music.play().catch(error => console.log("Oynatma engellendi:", error));
+      
+      let fadeIn = setInterval(() => {
+        if (music.volume < 0.2) {
+          let newVol = music.volume + 0.01;
+          music.volume = Math.min(newVol, 0.2);
+        } else {
+          clearInterval(fadeIn);
+        }
+      }, 150);
+
+      // Arayüz Geçişleri
+      disc.classList.add('playing');
+      if(hint) hint.textContent = "Çalıyor...";
+
+      introScreen.classList.add('fade-out');
+      mainPage.classList.add('content-visible');
+      document.body.style.overflow = 'auto';
+      
+      setTimeout(() => { 
+        introScreen.style.display = 'none'; 
+      }, 1500);
+    });
+
+    // ==========================================
+    // 2. SCROLL İZLEYİCİ (Kutuların Belirmesi)
+    // ==========================================
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target); 
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.quote').forEach(quote => observer.observe(quote));
+
+    // ==========================================
+    // 3. MANUEL MÜZİK KONTROLÜ
+    // ==========================================
+    document.getElementById('music-trigger').addEventListener('click', () => {
+      if (music.paused) {
+        music.play();
+        disc.classList.add('playing');
+        hint.textContent = "Çalıyor...";
       } else {
-        clearInterval(fadeIn);
-      }
-    }, 150); // Her 150ms'de bir küçük bir adım
-
-    // Görsel geçişler
-    disc.classList.add('playing');
-    if(hint) {
-      hint.textContent = "Çalıyor...";
-      hint.style.opacity = "0.7";
-    }
-
-    introScreen.classList.add('fade-out');
-    mainPage.classList.add('content-visible'); // CSS'teki sınıfa uygun olarak
-    document.body.style.overflow = 'auto'; // Kilidi açıyoruz
-    
-    setTimeout(() => { 
-      introScreen.style.display = 'none'; 
-    }, 1500);
-  });
-
-  // ==========================================
-  // 3. SCROLL İZLEYİCİ (Alıntıların Belirmesi)
-  // ==========================================
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-        // Bir kez beliren alıntı yerinde kalsın istersen:
-        // observer.unobserve(entry.target); 
+        music.pause();
+        disc.classList.remove('playing');
+        hint.textContent = "Duraklatıldı";
       }
     });
-  }, { threshold: 0.1 });
 
-  document.querySelectorAll('.quote').forEach(quote => observer.observe(quote));
+    // ==========================================
+    // 4. SESSİZLİK SENSÖRÜ (Sekme Değişirse)
+    // ==========================================
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden) {
+        music.pause();
+        disc.classList.remove('playing');
+        document.title = "Sessizlik..."; 
+      } else {
+        document.title = "İzler — Berkay Alay"; 
+      }
+    });
 
-  // ==========================================
-  // 4. MANUEL MÜZİK KONTROLÜ
-  // ==========================================
-  document.getElementById('music-trigger').addEventListener('click', () => {
-    if (music.paused) {
-      music.play();
-      disc.classList.add('playing');
-      hint.textContent = "Çalıyor...";
-    } else {
-      music.pause();
-      disc.classList.remove('playing');
-      hint.textContent = "Duraklatıldı";
-    }
-  });
-
-  // ==========================================
-  // 5. SESSİZLİK SENSÖRÜ (Sekme Değişirse)
-  // ==========================================
-  document.addEventListener("visibilitychange", () => {
-    if (document.hidden) {
-      music.pause();
-      disc.classList.remove('playing');
-      document.title = "Sessizlik..."; 
-    } else {
-      document.title = "İzler — Berkay Alay"; 
-    }
-  });
-
-  // Sayfa tamamen hazır olduğunda
-  window.addEventListener('load', () => {
-    document.body.classList.add('loaded');
-  });
-</script>
+    window.addEventListener('load', () => {
+      document.body.classList.add('loaded');
+      if (typeof createDust === "function") createDust();
+    });
+    
+    setTimeout(() => {
+      document.body.classList.add('loaded');
+    }, 3000);
+  </script>
 </body>
 </html>
