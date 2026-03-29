@@ -5,7 +5,9 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
   <link rel="preload" href="./style.css" as="style">
-  <link rel="preload" href="./profile.jpg" as="image">
+  <link rel="preload" href="./siyaheldivenliprenses.jpg" as="image">
+  <link rel="preload" href="./cover.jpg" as="image">
+  
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>İzler — Berkay Alay</title>
@@ -19,12 +21,32 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400&display=swap" rel="stylesheet">
   
   <link rel="stylesheet" href="./style.css">
+
+  <style>
+    /* Görsel Geçiş Ayarları */
+    #intro-screen .intro-bg {
+      background-image: url('./siyaheldivenliprenses.jpg');
+      background-size: cover;
+      background-position: center;
+    }
+
+    .fixed-bg {
+      background-image: url('./cover.jpg');
+      background-size: cover;
+      background-position: center;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -2;
+    }
+  </style>
 </head>
 <body>
 
   <div id="intro-screen">
-    <div class="intro-bg" style="background-image: url('./cover.jpg');"></div>
-    
+    <div class="intro-bg"></div>
     <div class="intro-content">
       <h1 class="intro-title">İzler</h1>
       <p class="intro-quote">"Bazı cümleler yazıldığı yerde kalmaz.<br>Okuyanın içinde yer değiştirir."</p>
@@ -32,51 +54,50 @@
     </div>
   </div>
 
-  <div class="fixed-bg" style="background-image: url('./cover.jpg');"></div>
+  <div class="fixed-bg"></div>
   <div class="grain"></div>
 
   <main class="page" id="mainPage">
-    
     <header class="hero-spacer"></header>
 
     <div class="scene">
       <section class="quote q-left">
-        <p>“Ben seni bir bakışta tanıdım. Ama sen beni hiçbir zaman fark etmedin. Ve fark etmemenin içinde öylesine bir adalet vardı ki... buna bile razı oldum. Sadece seni uzaktan görebilmek, bana uzun bir kış boyu yetecek kadar sıcaklık verdi.”</p>
+        <p>“Ben seni bir bakışta tanıdım. Ama sen beni hiçbir zaman fark etmedin. Ve fark etmemenin içinde öylesine bir adalet vardı ki... buna bile razı oldum.”</p>
         <span>Turuncu Saçlı Kız</span>
       </section>
 
       <div class="divider">~</div>
 
       <section class="quote q-right">
-        <p>“Tesadüf seni önüme çıkarmasaydı, gene aynı şekilde fakat her şeyden habersiz, yaşayıp gidecektim. Sen bana dünyada başka bir hayatın da mevcut olduğunu, benim bir de ruhum bulunduğunu öğrettin.”</p>
+        <p>“Tesadüf seni önüme çıkarmasaydı, gene aynı şekilde fakat her şeyden habersiz, yaşayıp gidecektim. Sen bana dünyada başka bir hayatın da mevcut olduğunu öğrettin.”</p>
         <span>Kürk Mantolu Madonna</span>
       </section>
     </div>
 
     <div class="scene">
       <section class="quote q-left">
-        <p>“Seninle ilgili olan hiçbir şeyin tanımı yok. Seni ilk gördüğümde ne hissettiğimi anlatamam. Çünkü kelimeler, seni daraltır. Oysa sen, anlamı taşan bir varlıktın. Bu yüzden seni tarif etmekten vazgeçtim. Sadece hissettim. Ve hissettikçe sustum. Çünkü bazen anlatmak, eksiltmektir.”</p>
+        <p>“Seninle ilgili olan hiçbir şeyin tanımı yok. Seni ilk gördüğümde ne hissettiğimi anlatamam. Çünkü kelimeler, seni daraltır.”</p>
         <span>Turuncu Saçlı Kız</span>
       </section>
 
       <div class="divider">~</div>
 
       <section class="quote q-right">
-        <p>“Sessizlik bir eksiklik değil, bazen hayatta kalma biçimidir. Dışarıdan bakınca boşluk sanılan şey, içeride verilen bir savaşın sessiz cephesidir. Anlatmak anlaşılmayı garantilemez, ama susmak seni korur.”</p>
+        <p>“Sessizlik bir eksiklik değil, bazen hayatta kalma biçimidir. Dışarıdan bakınca boşluk sanılan şey, içeride verilen bir savaşın sessiz cephesidir.”</p>
         <span>Beynin Sessiz Fırtınaları</span>
       </section>
     </div>
 
     <div class="scene">
       <section class="quote q-left">
-        <p>“Bir gün seninle aynı yağmurda yürüdüm. Sen farkında bile olmadan yanımdan geçtin. Üstün ıslanmasın diye başını biraz daha eğmiş, hızlı adımlarla köşeye yönelmiştin. Ben ise... seni geçip giden bir insanı değil, kendimi yıllar sonra orada ilk kez yakalamıştım. Sen o an, kim olduğunu bilmeden kim olduğumu hatırlattın bana.”</p>
+        <p>“Bir gün seninle aynı yağmurda yürüdüm. Sen farkında bile olmadan yanımdan geçtin... Sen o an, kim olduğunu bilmeden kim olduğumu hatırlattın bana.”</p>
         <span>Turuncu Saçlı Kız</span>
       </section>
 
       <div class="divider">~</div>
 
       <section class="quote q-right">
-        <p>“Yürüdüğün sokakları hatırlıyorum. Senin olmadığın ama seni düşündüğüm sokakları... Orada sana hiç rastlamadım. Ama her köşe başında seni aradım. Belki adımlarımız aynı kaldırım taşına değmiştir. Ama bil ki... senin geçtiğin hiçbir yer, benden sonra bir daha aynı kalmadı.”</p>
+        <p>“Yürüdüğün sokakları hatırlıyorum. Senin olmadığın ama seni düşündüğüm sokakları... senin geçtiğin hiçbir yer, benden sonra bir daha aynı kalmadı.”</p>
         <span>Turuncu Saçlı Kız</span>
       </section>
     </div>
@@ -88,42 +109,42 @@
 
     <div class="scene">
       <section class="quote q-left">
-        <p>“Seninle hiç konuşmadan bir dil kurdum. Ve o dilde her kelime... sendin. Mesela gülüşünü değil, gülmediğin anları ezberledim. Kaşlarını çatmadan önceki saniyeyi. Kitaba baktığında gerçekten okuyup okumadığını. Dalgınlığını değil, neden dalıp gittiğini. Anlıyor musun?”</p>
+        <p>“Seninle hiç konuşmadan bir dil kurdum. Ve o dilde her kelime... sendin. Mesela gülüşünü değil, gülmediğin anları ezberledim.”</p>
         <span>Turuncu Saçlı Kız</span>
       </section>
 
       <div class="divider">~</div>
 
       <section class="quote q-right">
-        <p>“Konuşmak, bazen anlaşılmanın en zor yoludur. İnsanlar kelimelerine takılır, sesinin tonuna, hatta duraksamalarına... Seni yanlış kelimelerle kaybetmektense, dürüst bir sessizlikle saklamayı seçtim. Çünkü yazılmayan mektuplar, asla reddedilmez.”</p>
+        <p>“Konuşmak, bazen anlaşılmanın en zor yoludur... Seni yanlış kelimelerle kaybetmektense, dürüst bir sessizlikle saklamayı seçtim.”</p>
         <span>Beynin Sessiz Fırtınaları</span>
       </section>
     </div>
 
     <div class="scene">
       <section class="quote q-left">
-        <p>“Birini beklemek... bazen bir durağın kenarında, bazen bir cümlede, bazen bir kitabın içinde olur. Ama en zoru, birini içinde beklemektir. Çünkü orada saat yoktur. Takvim İşlemez. Ve ne zaman vazgeçeceğini bilmezsin.”</p>
+        <p>“Birini beklemek... bazen bir durağın kenarında, bazen bir cümlede olur. Ama en zoru, birini içinde beklemektir. Çünkü orada saat yoktur.”</p>
         <span>Turuncu Saçlı Kız</span>
       </section>
 
       <div class="divider">~</div>
 
       <section class="quote q-right">
-        <p>“Beklemenin garip tarafı şu ki; insan neden beklediğini bilmediği halde beklemeye devam ediyor. Bu bir bakış, belki bir ses, belki sadece geçerken omzunun bana dokunmasıydı aradığım. Ama olmadı.”</p>
+        <p>“Beklemenin garip tarafı şu ki; insan neden beklediğini bilmediği halde beklemeye devam ediyor.”</p>
         <span>Turuncu Saçlı Kız</span>
       </section>
     </div>
 
     <div class="scene">
       <section class="quote q-left">
-        <p>“Kırılmalar, bağırarak olmaz. En sert çöküşler sessiz yaşanır. Ve ben bir kez daha anladım: Bazı insanlar sadece yaşar. Bazılarıysa... şahit olur. Ben o gün sadece şahit oldum. Çünkü herkes duymak istediğini duyar, ama kimse sessizliği duymaz.”</p>
+        <p>“Kırılmalar, bağırarak olmaz. En sert çöküşler sessiz yaşanır. Çünkü herkes duymak istediğini duyar, ama kimse sessizliği duymaz.”</p>
         <span>Beynin Sessiz Fırtınaları</span>
       </section>
 
       <div class="divider">~</div>
 
       <section class="quote q-right">
-        <p>“İnsan bazı şeyleri söylemese de gözleri konuşur. Göz göze gelmek cesarettir; gözünü kaçırmamazsa, vedadır. Veda eden insan, son kez gördüğü manzarayı ezberlemek ister gibi bakar. O bakışta öfke yoktur, sitem yoktur. Sadece derin bir kabulleniş vardır.”</p>
+        <p>“İnsan bazı şeyleri söylemese de gözleri konuşur. Göz göze gelmek cesarettir; gözünü kaçırmamaksa, vedadır.”</p>
         <span>Beynin Sessiz Fırtınaları</span>
       </section>
     </div>
@@ -138,7 +159,6 @@
     <div class="end-mark">
       <a href="https://berkayalay53.github.io/" class="home-link">← ANA SAYFAYA DÖN</a>
     </div>
-
   </main>
 
   <div class="music-control" id="music-trigger">
@@ -155,48 +175,24 @@
   </audio>
 
   <script>
-    // 1. Elementler
+    // 1. INTRO VE AKIŞ YÖNETİMİ
     const introScreen = document.getElementById('intro-screen');
     const startBtn = document.getElementById('start-btn');
     const mainPage = document.getElementById('mainPage');
-    const music = document.getElementById('bg-music');
-    const disc = document.getElementById('disc');
-    const hint = document.querySelector('.music-hint');
 
     document.body.style.overflow = 'hidden';
 
-    // 2. Giriş ve Müzik Fısıltısı
     startBtn.addEventListener('click', () => {
-      // Müzik ayarları
-      music.volume = 0;
-      music.play().catch(e => console.log("Fısıltı engellendi."));
-      
-      let fadeIn = setInterval(() => {
-        if (music.volume < 0.2) {
-          let nextVol = music.volume + 0.01;
-          music.volume = Math.min(nextVol, 0.2);
-        } else {
-          clearInterval(fadeIn);
-        }
-      }, 150);
-
-      disc.classList.add('playing');
-      if(hint) {
-        hint.textContent = "Çalıyor...";
-        hint.style.opacity = "0.7";
-      }
-
-      // Görsel Geçişler
       introScreen.classList.add('fade-out');
       mainPage.classList.add('content-visible');
-      document.body.style.overflow = 'auto';
-
+      document.body.style.overflow = 'auto'; 
+      
       setTimeout(() => {
         introScreen.style.display = 'none';
       }, 1500);
     });
 
-    // 3. Scroll Animasyonu
+    // 2. SCROLL GÖRÜNÜRLÜK (Intersection Observer)
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -208,12 +204,20 @@
 
     document.querySelectorAll('.quote').forEach(quote => observer.observe(quote));
 
-    // 4. Manuel Müzik Kontrolü
-    document.getElementById('music-trigger').addEventListener('click', () => {
+    // 3. MÜZİK VE PLAK
+    const musicTrigger = document.getElementById('music-trigger');
+    const music = document.getElementById('bg-music');
+    const disc = document.getElementById('disc');
+    const hint = document.querySelector('.music-hint');
+    
+    music.volume = 0.5; 
+
+    musicTrigger.addEventListener('click', () => {
       if (music.paused) {
         music.play();
         disc.classList.add('playing');
         hint.textContent = "Çalıyor...";
+        hint.style.opacity = "0.7";
       } else {
         music.pause();
         disc.classList.remove('playing');
@@ -221,7 +225,12 @@
       }
     });
 
-    // 5. Sessizlik Sensörü (Sekme Değişirse)
+    music.addEventListener('ended', () => {
+      disc.classList.remove('playing');
+      hint.textContent = "Tekrarla";
+    });
+
+    // 4. SESSİZLİK SENSÖRÜ
     document.addEventListener("visibilitychange", () => {
       if (document.hidden) {
         music.pause();
@@ -232,18 +241,12 @@
       }
     });
 
-    // 6. Sayfa Yüklenme Yönetimi
+    // 5. SAYFA YÜKLENME
     window.addEventListener('load', () => {
       document.body.classList.add('loaded');
+      if (typeof createDust === "function") createDust(); 
     });
-
-    window.addEventListener("pageshow", function(event) {
-      if (event.persisted) {
-        document.body.classList.add('loaded');
-        document.body.style.opacity = "1";
-      }
-    });
-
+    
     setTimeout(() => {
       document.body.classList.add('loaded');
     }, 3000);
